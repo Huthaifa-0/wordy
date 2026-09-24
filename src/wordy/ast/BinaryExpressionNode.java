@@ -3,6 +3,8 @@ package wordy.ast;
 import java.util.Map;
 import java.util.Objects;
 
+import wordy.interpreter.EvaluationContext;
+
 import static wordy.ast.Utils.orderedMap;
 
 /**
@@ -58,5 +60,26 @@ public class BinaryExpressionNode extends ExpressionNode {
     @Override
     protected String describeAttributes() {
         return "(operator=" + operator + ')';
+    }
+
+    @Override
+    protected double doEvaluate(EvaluationContext context) {
+        double lhs_value = lhs.evaluate(context);
+        double rhs_value = rhs.evaluate(context);
+        switch (operator) {
+        case ADDITION:
+            return lhs_value + rhs_value;
+        case SUBTRACTION:
+            return lhs_value - rhs_value;
+        case MULTIPLICATION:
+            return lhs_value * rhs_value;
+        case DIVISION:
+            return lhs_value / rhs_value;
+        case EXPONENTIATION:
+            return Math.pow(lhs_value, rhs_value);
+        default:
+            throw new IllegalArgumentException("Unknown operator: " + operator);
+    }
+        
     }
 }
