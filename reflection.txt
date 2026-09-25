@@ -1,0 +1,2 @@
+in the block node for the interpreter my solution was to define a statment node as an iterator but you chose to have it as var. 
+the interpreter was almost the same, compiler code is also almost the same. 
